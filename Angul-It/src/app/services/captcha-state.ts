@@ -7,54 +7,55 @@ import { CaptchaSession } from '../models/captcha-session.model';
   providedIn: 'root',
 })
 export class CaptchaState {
-  private  readonly session = signal<CaptchaSession>({
+  private readonly session = signal<CaptchaSession>({
     challenges: CHALLENGES,
     currentChallengeIndex: 0,
     score: 0,
     completed: false,
   });
-  readonly theSessionDyalDaba= this.session.asReadonly();
- 
+readonly sessionState = this.session.asReadonly();
 
 
-    stertNewSession() {
-      this.session.set({
-        challenges: [...CHALLENGES],
-        currentChallengeIndex: 0,
-        score: 0,
-        completed: false,
-      })
-    }
+  stertNewSession() {
+    this.session.set({
+      challenges: [...CHALLENGES],
+      currentChallengeIndex: 0,
+      score: 0,
+      completed: false,
+    })
+  }
 
 
-    getCurrentChallenge() {
-     return this.session().challenges[this.session().currentChallengeIndex];
-      // return this.session().challenges[currentIndex];
-    }
+  getCurrentChallenge() {
+    return this.session().challenges[this.session().currentChallengeIndex];
+    // return this.session().challenges[currentIndex];
+  }
 
-    nextChallenge() {
-      const lCurrent = this.session().currentChallengeIndex;
-      const  theNext = lCurrent + 1;
-      if (theNext < this.session().challenges.length) {
-        this.session.update((state) => ({
+  nextChallenge() {
+    this.session.update((state) => {
+      const lCurrent = this.session().currentChallengeIndex
+      const theNext = lCurrent + 1
+      if (theNext >= this.session().challenges.length) {
+
+        return {
           ...state,
           completed: true,
-        }));
-        return 
+        }
       }
-      this.session.update((state) => ({
+      return {
         ...state,
         currentChallengeIndex: theNext,
-      }));
-    }
+      }
+    });
+  }
 
 
 
-    addPoints(): void {
-  this.session.update((state) => ({
-    ...state,
-    score: state.score + 5,
-  }));
-}
+  addPoints( points :number): void {
+    this.session.update((state) => ({
+      ...state,
+      score: state.score + points,
+    }));
+  }
 }
 

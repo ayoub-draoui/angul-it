@@ -22,7 +22,7 @@ export interface ImageOption {
 export interface ImageSelectionChallenge  {
         id : string 
         type: ChallengeType.IMAGE_SELECTION;
-        questtion: string;
+        question: string;
         points: number;
         images: ImageOption[];
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CaptchaState } from '../../services/captcha-state';
 
 @Component({
   selector: 'app-challenge',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './challenge.html',
   styleUrl: './challenge.scss',
 })
-export class Challenge {}
+export class Challenge {
+  protected readonly captchaState = inject(CaptchaState);
+}

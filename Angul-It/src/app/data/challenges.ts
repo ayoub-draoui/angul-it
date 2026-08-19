@@ -6,7 +6,7 @@ export const CHALLENGES: Challenge[] = [
     {
         id: 'the GOAT',
         type: ChallengeType.IMAGE_SELECTION,
-        questtion: 'Who is the GOAT?',
+        question: 'Who is the GOAT?',
         points: 5,
         images: [
             {
