@@ -6,24 +6,26 @@ import { CaptchaState } from '../../services/captcha-state';
 
 @Component({
   selector: 'app-challenge',
-  imports: [],
+  imports:[ReactiveFormsModule],
   templateUrl: './challenge.html',
   styleUrl: './challenge.scss',
 })
 export class Challenge {
   protected readonly captchaState = inject(CaptchaState);
   protected readonly ChallengeType = ChallengeType;
+  protected readonly selectedImageIds = new Set<string>();
+
+  protected errorMessage = '';
+  
  protected readonly mathAnswer = new FormControl<number | null>(
     null,
     Validators.required
   );
-
-
+  
   protected readonly textAnswer = new FormControl('', [
     Validators.required,
     Validators.minLength(1),
   ]);
-  protected readonly selectedImageIds = new Set<string>();
 
   protected get challenge() {
     return this.captchaState.getCurrentChallenge();
@@ -43,19 +45,17 @@ export class Challenge {
 
     if (this.mathAnswer.invalid) {
       this.mathAnswer.markAsTouched();
+      this.errorMessage = 'Enter an answer.';
       return;
     }
 
     if (this.mathAnswer.value !== this.challenge.answer) {
-      console.log('Wrong answer');
+      this.errorMessage = 'Wrong answer';
       return;
     }
+    this.errorMessage = '';
 
-    this.captchaState.addPoints(this.challenge.points);
-
-    this.mathAnswer.reset();
-
-    this.captchaState.nextChallenge();
+     this.completeChallenge(this.challenge.points);
   }
 
 
@@ -77,14 +77,11 @@ export class Challenge {
     [...selectedIds].every(id => correctIds.has(id));
 
   if (!isCorrect) {
-    console.log('Wrong answer');
+    this.errorMessage = 'Wrong answer';
     return;
   }
-
-  this.captchaState.addPoints(this.challenge.points);
-  this.selectedImageIds.clear();
-
-  this.captchaState.nextChallenge();
+  this.errorMessage = '';
+ this.completeChallenge(this.challenge.points);
 }
 
   protected isSelected(imageId: string): boolean {
@@ -105,12 +102,22 @@ export class Challenge {
     const answer = this.textAnswer.value?.trim().toUpperCase();
 
     if (answer !== this.challenge.verificationText.toUpperCase()) {
-      console.log('Wrong answer');
+      this.errorMessage = 'Wrong answer';
       return;
     }
+    this.errorMessage = '';
 
-    this.captchaState.addPoints(this.challenge.points);
+   this.completeChallenge(this.challenge.points);
+  }
 
+
+  private completeChallenge(points: number): void {
+    this.errorMessage = '';
+
+    this.captchaState.addPoints(points);
+
+    this.selectedImageIds.clear();
+    this.mathAnswer.reset();
     this.textAnswer.reset();
 
     this.captchaState.nextChallenge();
