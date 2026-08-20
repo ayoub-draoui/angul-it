@@ -1,16 +1,131 @@
-<main>
-  <h1>CAPTCHA</h1>
+<main class="challenge-page">
 
-  <p>
-    Challenge:
-    {{ captchaState.sessionState().currentChallengeIndex + 1 }}
-  </p>
+  <header class="challenge-header">
+    <span>
+      Challenge
+      {{ captchaState.sessionState().currentChallengeIndex + 1 }}
+      /
+      {{ captchaState.sessionState().challenges.length }}
+    </span>
 
-  <p>
-    Score: {{ captchaState.sessionState().score }}
-  </p>
+    <span>
+      Score: {{ captchaState.sessionState().score }}
+    </span>
+  </header>
 
-  <button type="button" (click)="captchaState.nextChallenge()">
-    Next
-  </button>
+
+  <section class="challenge-card">
+
+    <p class="challenge-label">CAPTCHA</p>
+
+    <h1>
+      {{ challenge.question }}
+    </h1>
+
+
+    @if (challenge.type === ChallengeType.IMAGE_SELECTION) {
+
+    <div class="image-grid">
+
+      @for (image of challenge.images; track image.id) {
+
+      <button type="button" class="image-option" [class.selected]="isSelected(image.id)"
+        (click)="toggleImage(image.id)">
+
+        <img [src]="image.src" [alt]="image.alt" />
+
+        @if (isSelected(image.id)) {
+        <span class="selection-indicator">
+          ✓
+        </span>
+        }
+
+      </button>
+
+      }
+
+    </div>
+
+    <button type="button" class="verify-button" (click)="verifyImageSelection()">
+      Verify
+    </button>
+
+    }
+
+
+    @if (challenge.type === ChallengeType.MATH) {
+
+  <div class="math-challenge">
+
+    <div class="expression">
+      {{ challenge.expression }}
+    </div>
+
+    <input
+      type="number"
+      [formControl]="mathAnswer"
+      placeholder="Your answer"
+      (keyup.enter)="verifyMath()"
+    />
+
+    @if (mathAnswer.touched && mathAnswer.hasError('required')) {
+      <p class="error">
+        Enter an answer.
+      </p>
+    }
+
+    <button
+      type="button"
+      class="verify-button"
+      (click)="verifyMath()"
+    >
+      Verify
+    </button>
+
+  </div>
+
+}
+
+
+   @if (challenge.type === ChallengeType.TEXT) {
+
+  <div class="text-challenge">
+
+    <div class="verification-text">
+      {{ challenge.verificationText }}
+    </div>
+
+    <input
+      type="text"
+      [formControl]="textAnswer"
+      placeholder="Enter the characters"
+      autocomplete="off"
+      (keyup.enter)="verifyText()"
+    />
+
+    @if (textAnswer.touched && textAnswer.hasError('required')) {
+      <p class="error">
+        Enter the characters shown above.
+      </p>
+    }
+
+    <button
+      type="button"
+      class="verify-button"
+      (click)="verifyText()"
+    >
+      Verify
+    </button>
+
+  </div>
+
+}
+
+
+    <!-- <button type="button" class="next-button" (click)="captchaState.nextChallenge()">
+      Next
+    </button> -->
+
+  </section>
+
 </main>

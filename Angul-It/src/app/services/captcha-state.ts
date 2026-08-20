@@ -7,22 +7,55 @@ import { CaptchaSession } from '../models/captcha-session.model';
   providedIn: 'root',
 })
 export class CaptchaState {
+
+
+constructor() {
+  this.restoreSession();
+}
+
   private readonly session = signal<CaptchaSession>({
     challenges: CHALLENGES,
     currentChallengeIndex: 0,
     score: 0,
     completed: false,
   });
-readonly sessionState = this.session.asReadonly();
+  readonly sessionState = this.session.asReadonly();
+  
+  private readonly STORAGE_KEY = 'angul-it-session';
 
 
-  stertNewSession() {
+  private saveSession(): void {
+  localStorage.setItem(
+    this.STORAGE_KEY,
+    JSON.stringify(this.session())
+  );
+}
+
+
+
+
+private restoreSession(): void {
+  const stored = localStorage.getItem(this.STORAGE_KEY);
+
+  if (!stored) {
+    return;
+  }
+
+  try {
+    const session: CaptchaSession = JSON.parse(stored);
+    this.session.set(session);
+  } catch {
+    localStorage.removeItem(this.STORAGE_KEY);
+  }
+}
+  startNewSession() {
     this.session.set({
       challenges: [...CHALLENGES],
       currentChallengeIndex: 0,
       score: 0,
       completed: false,
     })
+    this.saveSession();
   }
 
 
@@ -47,6 +80,7 @@ readonly sessionState = this.session.asReadonly();
         currentChallengeIndex: theNext,
       }
     });
+    this.saveSession();
   }
 
 
@@ -56,6 +90,7 @@ readonly sessionState = this.session.asReadonly();
       ...state,
       score: state.score + points,
     }));
+    this.saveSession();
   }
 }
 

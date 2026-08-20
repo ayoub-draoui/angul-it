@@ -10,36 +10,60 @@ export const CHALLENGES: Challenge[] = [
         points: 5,
         images: [
             {
-                id: 'image-1',
-                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2XN4mkkc6EMhdBQUu93MyU-bXFVmJFF3-SJGN-5cbg&s=10',
-                alt: 'messi',
-                correct: true
-            },
-            {
-                id: 'image-2',
-                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_FIZieLwE7AEjxBdVBf1cGmNmXua3cED7fpUJDgln5g&s=10',
-                alt: 'messi',
+                id: 'messi-1',
+                src: '/challenges/messi1.jpg',
+                alt: 'Lionel Messi celebrating',
                 correct: true,
             },
             {
-                id: 'image-3',
-                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNIZYfcNJFzqMQxk-C8vEFzL49VLOuxf8vuyrHKbsnIw&s=10',
-                alt: 'messi',
+                id: 'xavi1',
+                src: '/challenges/xavi1.jpg',
+                alt: 'Xavi Hernández',
+                correct: false,
+            },
+            {
+                id: 'iniesta-1',
+                src: '/challenges/iniesta.jpg',
+                alt: 'Andrés Iniesta',
+                correct: false,
+            },
+            {
+                id: 'messi-3',
+                src: '/challenges/messi3.jpg',
+                alt: 'Lionel Messi with the ball',
                 correct: true,
             },
             {
-                id: 'image-4',
-                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0AfguvKla_clf_NnDXHknN4nINqfRcz5ntM-bJ8FYZA&s=10',
-                alt: 'xavi',
-                correct: false
+                id: 'messi-2',
+                src: '/challenges/messi2.jpg',
+                alt: 'Lionel Messi playing football',
+                correct: true,
             },
             {
-                id: 'image-5',
-                src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEt-qG6QwKLLzVvtCuGObe-WC5gK-XdNmE4vUUJkmiXg&s=10",
-                alt: 'iniesta',
-                correct: false
-            }
-        ]
+                id: 'frank-1',
+                src: '/challenges/frank.jpg',
+                alt: 'Franck ribéry',
+                correct: false,
+            },
+            {
+                id: 'neymar-1',
+                src: '/challenges/neymar.jpg',
+                alt: 'Neymar Jr.',
+                correct: false,
+            },
+            {
+                id: 'ronaldo-1',
+                src: '/challenges/ronaldo.jpg',
+                alt: 'Ronaldo Nazário',
+                correct: false,
+            },
+            {
+                id: 'yamal',
+                src: '/challenges/the-mechanic.jpg',
+                alt: 'Yamal',
+                correct: false,
+            },
+  ]
     },
     {
         id: 'simple-math',
