@@ -1,0 +1,92 @@
+.result-page {
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  padding: 2rem;
+}
+
+.result-card {
+  width: min(500px, 100%);
+
+  padding: 3rem 2rem;
+
+  text-align: center;
+
+  border: 1px solid #ddd;
+  border-radius: 16px;
+}
+
+.result-label {
+  margin-bottom: 1rem;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+
+  opacity: 0.5;
+}
+
+.result-card h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3rem);
+}
+
+.result-message {
+  margin: 1rem 0 2rem;
+
+  opacity: 0.65;
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4rem;
+
+  margin-bottom: 2rem;
+}
+
+.score-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+
+.score strong {
+  font-size: 3rem;
+}
+
+.restart-button {
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #111;
+  color: #fff;
+
+  font: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    opacity 150ms ease;
+}
+
+.restart-button:hover {
+  transform: translateY(-2px);
+}
+
+.restart-button:active {
+  transform: translateY(0);
+}
+
+.restart-button:focus-visible {
+  outline: 3px solid #888;
+  outline-offset: 3px;
+}

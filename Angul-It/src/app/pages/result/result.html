@@ -1,1 +1,44 @@
-<p>result works!</p>
+<main class="result-page">
+
+  <section class="result-card">
+
+    <p class="result-label">
+      CAPTCHA COMPLETE
+    </p>
+
+    <h1>
+      You did it.
+    </h1>
+
+    <p class="result-message">
+      Apparently, you're human.
+    </p>
+
+    <div class="score">
+
+      <span class="score-label">
+        SCORE
+      </span>
+
+      <strong>
+        {{ captchaState.sessionState().score }}
+      </strong>
+
+      <span>
+        /
+        {{ captchaState.sessionState().challenges.length * 5 }}
+      </span>
+
+    </div>
+
+    <button
+      type="button"
+      class="restart-button"
+      (click)="restart()"
+    >
+      Try Again
+    </button>
+
+  </section>
+
+</main>

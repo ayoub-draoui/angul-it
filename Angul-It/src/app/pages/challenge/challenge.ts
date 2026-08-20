@@ -3,7 +3,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ChallengeType } from '../../models/challenges.model';
 import { CaptchaState } from '../../services/captcha-state';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-challenge',
   imports:[ReactiveFormsModule],
@@ -11,6 +11,7 @@ import { CaptchaState } from '../../services/captcha-state';
   styleUrl: './challenge.scss',
 })
 export class Challenge {
+  private readonly router = inject(Router);
   protected readonly captchaState = inject(CaptchaState);
   protected readonly ChallengeType = ChallengeType;
   protected readonly selectedImageIds = new Set<string>();
@@ -50,7 +51,7 @@ export class Challenge {
     }
 
     if (this.mathAnswer.value !== this.challenge.answer) {
-      this.errorMessage = 'Wrong answer';
+      this.errorMessage = 'come one man is basic math 3lach ma9ritish 3laaaach , wash ma3andaksh adawaat ';
       return;
     }
     this.errorMessage = '';
@@ -77,7 +78,7 @@ export class Challenge {
     [...selectedIds].every(id => correctIds.has(id));
 
   if (!isCorrect) {
-    this.errorMessage = 'Wrong answer';
+    this.errorMessage = 'reallyyyyy!!!!!!!!!!!';
     return;
   }
   this.errorMessage = '';
@@ -102,7 +103,7 @@ export class Challenge {
     const answer = this.textAnswer.value?.trim().toUpperCase();
 
     if (answer !== this.challenge.verificationText.toUpperCase()) {
-      this.errorMessage = 'Wrong answer';
+      this.errorMessage = 'glasses on champ';
       return;
     }
     this.errorMessage = '';
@@ -119,7 +120,9 @@ export class Challenge {
     this.selectedImageIds.clear();
     this.mathAnswer.reset();
     this.textAnswer.reset();
-
     this.captchaState.nextChallenge();
+     if (this.captchaState.sessionState().completed) {
+    this.router.navigate(['/result']);
+  }
   }
 }

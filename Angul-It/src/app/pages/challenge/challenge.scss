@@ -105,17 +105,6 @@ input {
   font: inherit;
 }
 
-.next-button {
-  margin-top: 2rem;
-  width: 100%;
-  padding: 0.9rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 600;
-}
-
 
 .error {
   margin-top: 1rem;
@@ -124,3 +113,38 @@ input {
 }
 
 
+.verify-button {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 1.5rem auto 0;
+  padding: 0.85rem 1.5rem;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #111;
+  color: #fff;
+
+  font: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    opacity 150ms ease;
+}
+
+.verify-button:hover {
+  transform: translateY(-2px);
+}
+
+.verify-button:active {
+  transform: translateY(0);
+}
+
+.verify-button:focus-visible {
+  outline: 3px solid #888;
+  outline-offset: 3px;
+}
